@@ -1,0 +1,2 @@
+C:\msys64\ucrt64\bin\ar.exe qc libIncludes.a CMakeFiles/Includes.dir/src/Window.cpp.obj CMakeFiles/Includes.dir/src/Shader.cpp.obj
+C:\msys64\ucrt64\bin\ranlib.exe libIncludes.a

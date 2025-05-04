@@ -1,0 +1,80 @@
+[
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ImGui.dir/includes_CXX.rsp -g -o CMakeFiles\\ImGui.dir\\dependencies\\imgui-docking\\imgui.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\dependencies\\imgui-docking\\imgui.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/dependencies/imgui-docking/imgui.cpp",
+  "output": "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ImGui.dir/includes_CXX.rsp -g -o CMakeFiles\\ImGui.dir\\dependencies\\imgui-docking\\imgui_draw.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\dependencies\\imgui-docking\\imgui_draw.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/dependencies/imgui-docking/imgui_draw.cpp",
+  "output": "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_draw.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ImGui.dir/includes_CXX.rsp -g -o CMakeFiles\\ImGui.dir\\dependencies\\imgui-docking\\imgui_widgets.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\dependencies\\imgui-docking\\imgui_widgets.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/dependencies/imgui-docking/imgui_widgets.cpp",
+  "output": "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_widgets.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ImGui.dir/includes_CXX.rsp -g -o CMakeFiles\\ImGui.dir\\dependencies\\imgui-docking\\imgui_tables.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\dependencies\\imgui-docking\\imgui_tables.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/dependencies/imgui-docking/imgui_tables.cpp",
+  "output": "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_tables.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ImGui.dir/includes_CXX.rsp -g -o CMakeFiles\\ImGui.dir\\dependencies\\imgui-docking\\imgui_impl_glfw.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\dependencies\\imgui-docking\\imgui_impl_glfw.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/dependencies/imgui-docking/imgui_impl_glfw.cpp",
+  "output": "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_impl_glfw.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ImGui.dir/includes_CXX.rsp -g -o CMakeFiles\\ImGui.dir\\dependencies\\imgui-docking\\imgui_impl_opengl3.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\dependencies\\imgui-docking\\imgui_impl_opengl3.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/dependencies/imgui-docking/imgui_impl_opengl3.cpp",
+  "output": "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_impl_opengl3.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/Includes.dir/includes_CXX.rsp -g -o CMakeFiles\\Includes.dir\\src\\Window.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\Window.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/Window.cpp",
+  "output": "CMakeFiles/Includes.dir/src/Window.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/Includes.dir/includes_CXX.rsp -g -o CMakeFiles\\Includes.dir\\src\\Shader.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\Shader.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/Shader.cpp",
+  "output": "CMakeFiles/Includes.dir/src/Shader.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\src\\main.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\main.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/main.cpp",
+  "output": "CMakeFiles/ShaderEngine.dir/src/main.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\gcc.exe  @CMakeFiles/ShaderEngine.dir/includes_C.rsp -g -o CMakeFiles\\ShaderEngine.dir\\lib\\glad.c.obj -c D:\\cplusplus_projects\\ShaderEngine\\lib\\glad.c",
+  "file": "D:/cplusplus_projects/ShaderEngine/lib/glad.c",
+  "output": "CMakeFiles/ShaderEngine.dir/lib/glad.c.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\lib\\stb.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\lib\\stb.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/lib/stb.cpp",
+  "output": "CMakeFiles/ShaderEngine.dir/lib/stb.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\src\\Window.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\Window.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/Window.cpp",
+  "output": "CMakeFiles/ShaderEngine.dir/src/Window.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\src\\Shader.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\Shader.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/Shader.cpp",
+  "output": "CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj"
+}
+]

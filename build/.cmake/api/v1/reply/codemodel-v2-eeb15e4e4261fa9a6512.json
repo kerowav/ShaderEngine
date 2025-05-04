@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ShaderEngine",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ImGui::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ImGui-Debug-a9cdfcecbe81252f4cf1.json",
+					"name" : "ImGui",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Includes::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Includes-Debug-7a6a1513898942742ef8.json",
+					"name" : "Includes",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ShaderEngine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ShaderEngine-Debug-5e01dbfde4ff3dff2453.json",
+					"name" : "ShaderEngine",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/cplusplus_projects/ShaderEngine/build",
+		"source" : "D:/cplusplus_projects/ShaderEngine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 8
+	}
+}

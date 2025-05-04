@@ -1,0 +1,5 @@
+D:/cplusplus_projects/ShaderEngine/build/CMakeFiles/ImGui.dir
+D:/cplusplus_projects/ShaderEngine/build/CMakeFiles/ShaderEngine.dir
+D:/cplusplus_projects/ShaderEngine/build/CMakeFiles/Includes.dir
+D:/cplusplus_projects/ShaderEngine/build/CMakeFiles/edit_cache.dir
+D:/cplusplus_projects/ShaderEngine/build/CMakeFiles/rebuild_cache.dir
