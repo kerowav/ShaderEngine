@@ -6,9 +6,21 @@ out vec4 FragColor;
 in vec2 inUV;
 in float iTime;
 
+float circleShape(float radius, vec2 position) {
+    float pxToCenter = distance(position, vec2(sin(iTime), cos(iTime)));
+    pxToCenter = sin(fract(pxToCenter - iTime / 2.));
+    float smoothPx = smoothstep(radius, radius + 0.2, abs(pxToCenter));
+    float distance = length(position);
+    return smoothstep(radius, radius + 0.001, smoothPx);
+}
+
 void main() {
     vec2 uv = inUV;
     uv.x *= iResolution.x / iResolution.y;
+
+
+    float circleWidth = 0.01;
+    float circle = 1 - circleShape(circleWidth, uv);
 
     float distance = length(uv);
 
@@ -18,5 +30,5 @@ void main() {
     red += adjustedTime;
     // red = sin(red);
 
-    FragColor = vec4(red, vec2(0.), 1.);
+    FragColor = vec4(red, circle, sin(circle + fract(iTime + sin(red))), 1.);
 }

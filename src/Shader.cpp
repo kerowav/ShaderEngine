@@ -96,7 +96,7 @@ void ShaderProgram::ReloadShader(){
         LoadShaderMakerMode();
     }
     else {
-        LoadNewFragmentShader(shaderSrc.c_str());
+        CompileFragmentShader(shaderSrc.c_str());
     }
 }
 

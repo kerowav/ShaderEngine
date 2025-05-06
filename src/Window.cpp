@@ -52,6 +52,21 @@ void Window::Initialize() {
     shaderProgram = ShaderProgram("../assets/frag/fragment_core1.glsl");
 }
 
+
+
+/* TABLE OF USER VARIABLES
+
+
+VARIABLE TYPE - USER MADE VARIABLE NAME -  VARIABLE VALUE         -> Output
+
+vec4            my_color                  [0.0, 0.0, 0.0, 0.0]    -> "vec4 my_color = vec4(0.0, 0.0, 0.0, 0.0);\n"
+float           distance                  my_color                -> "float distance = length(my_color);\n"
+
+
+*/
+
+
+
 void Window::Run() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -120,6 +135,21 @@ void Window::ShaderLoaderPanel() {
             ChangeShader(("../assets/frag/" + name + ".glsl").c_str());
         };
     }
+    ImGui::Text("Completed");
+    for(const auto & entry : std::filesystem::directory_iterator("../assets/complete")) {
+        std::string name = entry.path().stem().string();
+        if(ImGui::Button(name.c_str())) {
+            ChangeShader(("../assets/complete/" + name + ".glsl").c_str());
+        };
+    }
+
+    ImGui::Text("Imported");
+    for(const auto & entry : std::filesystem::directory_iterator("../assets/import")) {
+        std::string name = entry.path().stem().string();
+        if(ImGui::Button(name.c_str())) {
+            ChangeShader(("../assets/import/" + name + ".glsl").c_str());
+        };
+    }
 
     ImGui::End();
 }
@@ -132,36 +162,62 @@ std::string vecToString(float vec[4], int size){
         if(i == size - 1) stringify += std::to_string(i);
         else stringify += std::to_string(vec[i]) + ",";
     }
-
+    
     stringify = "vec" + std::to_string(size) + "(" + stringify + ")";
     std::cout << "Stringify: " << stringify << "\n";
     return stringify;
 }
 
+struct ColorEdit { 
+public:
+    ColorEdit() = default;
+    // ColorEdit(std::string name, float& color) : mName{name}, mColor{color} { };
+    static void Draw(std::string name, float* color, bool* valuesChanged) {
+        if(ImGui::ColorEdit4(name.c_str(), color)){
+            *valuesChanged = true;
+        }
+    };
+private:
+    std::string mName;
+    float &mColor;
+};
+
 void Window::ShaderMakerPanel() {
     static float my_color[4] = {0.0f, 0.0f, 0.0f, 1.0f}; // Default color (red with full opacity)
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver); // Optional: Set initial position
     std::string body = "";
-    ImGui::Begin("Shader Maker", &popoutMode, ImGuiWindowFlags_NoDocking);
-    bool bodyChanged = false;
+    ImGui::Begin("Shader Maker", &popoutMode, ImGuiWindowFlags_MenuBar);
+    bool valuesChanged = false;
+
+    if(ImGui::BeginMenuBar()) {
+        if(ImGui::BeginMenu("Add Modifier")) {
+            if(ImGui::MenuItem("Length")) {
+
+                std::cout << "Adding length modifier\n";
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
 
     static char shaderName[128] = "";
     if(ImGui::InputText("Name", shaderName, IM_ARRAYSIZE(shaderName))){
         std::cout << shaderName << "\n";
-        bodyChanged = true;
+        valuesChanged = true;
     };
 
-    if(ImGui::ColorEdit4("Color", my_color)){
-        bodyChanged = true;
-    }
+    ColorEdit::Draw("my_color", my_color, &valuesChanged);
+
+    // if(ImGui::ColorEdit4("Color", my_color)){
+    //     valuesChanged = true;
+    // }
 
     static bool dist = false;
     if (ImGui::Checkbox("Distance", &dist)){
-        bodyChanged = true;
-
+        valuesChanged = true;
     } 
 
-    if (bodyChanged){
+    if (valuesChanged){
         body += "vec4 my_color = " + vecToString(my_color, 4) + ";\n";
         if(dist) body += "my_color.r = length(uv);\n";
         body += 
