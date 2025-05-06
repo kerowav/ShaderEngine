@@ -19,7 +19,7 @@ public:
     char infoLog[512];
     ShaderProgram() = default;
     ShaderProgram(const char* src);
-    void EnterShaderMakerMode();
+    void EnterShaderEditorMode();
     void UseProgram(int, int);
     inline std::string GetShaderName() {
         return shaderName;
@@ -29,14 +29,16 @@ public:
     }
     void ReloadShader();
     void LoadNewFragmentShader(const char* src);
-    void UpdateShaderMakerBody(std::string body);
+    void UpdateShaderEditorCode(const char* code);
+    void InsertShaderHeader();
+    std::string GetShaderEditorCode() {return shaderEditorCode;}
 private:
     std::string shaderSrc;
     std::string shaderName;
     bool shaderMakerMode = false;
     void CompileFragmentShader(const char* src);
-    void LoadShaderMakerMode();
-    void CompileShaderMaker();
-    std::string shaderMakerBody = "";
+    void LoadShaderEditorMode();
+    void CompileShaderEditorCode();
+    const char* shaderEditorCode = "";
     std::string loadShaderSrc(const char* filename);
 };

@@ -171,7 +171,7 @@ CMakeFiles/Includes.dir/src/Shader.cpp.obj: \
  C:/msys64/ucrt64/include/c++/14.2.0/ext/aligned_buffer.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/fs_dir.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/fs_ops.h \
- D:/cplusplus_projects/ShaderEngine/include/Shader.h \
  D:/cplusplus_projects/ShaderEngine/dependencies/glad/glad.h \
  D:/cplusplus_projects/ShaderEngine/dependencies/KHR/khrplatform.h \
- D:/cplusplus_projects/ShaderEngine/dependencies/GLFW/glfw3.h
+ D:/cplusplus_projects/ShaderEngine/dependencies/GLFW/glfw3.h \
+ D:/cplusplus_projects/ShaderEngine/include/Shader.h

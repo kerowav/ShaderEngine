@@ -28,6 +28,6 @@ private:
     bool reloadShaderKeyPressed = false;
     void processInput();
     void ShaderLoaderPanel();
-    void ShaderMakerPanel();
-    bool shaderMakerMode = false;
+    void ShaderEditorPanel();
+    bool shaderEditorMode = false;
 };

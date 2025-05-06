@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include "Shader.h"
 
@@ -89,37 +91,42 @@ void ShaderProgram::UseProgram(int width, int height) {
     glBindVertexArray(0);
 }
 
+std::string shaderMakerHeader = "#version 330 core\n"
+    "uniform vec2 iResolution;\n"
+    "out vec4 FragColor;\n"
+    "in vec2 inUV;\n"
+    "void main()\n";
+
+std::string shaderMakerCenter = 
+    "vec2 uv = inUV;\n"
+    "uv.x *= iResolution.x / iResolution.y;\n";
 
 
 void ShaderProgram::ReloadShader(){
     if(shaderMakerMode) {
-        LoadShaderMakerMode();
+        LoadShaderEditorMode();
     }
     else {
         CompileFragmentShader(shaderSrc.c_str());
     }
 }
 
-void ShaderProgram::EnterShaderMakerMode(){
+void ShaderProgram::EnterShaderEditorMode(){
     std::cout << "Shader maker mode initialized.\n";
     shaderMakerMode = true;
     ReloadShader();
 }
 
-std::string shaderMakerHeader = "#version 330 core\n"
-    "uniform vec2 iResolution;\n"
-    "out vec4 FragColor;\n"
-    "in vec2 inUV;\n"
-    "void main()\n"
-    "{\n"
-    "vec2 uv = inUV;\n"
-    "uv.x *= iResolution.x / iResolution.y;\n";
 
-std::string shaderMakerFooter = 
-    "}\0";
+void ShaderProgram::InsertShaderHeader() {
+    std::string templateSrc = loadShaderSrc("../assets/Frag_Template.glsl");
+    shaderEditorCode = templateSrc.c_str();
+    ReloadShader();
+    // shaderEditorCode = (shaderMakerHeader + shaderEditorCode).c_str();
+}
 
-void ShaderProgram::LoadShaderMakerMode(){
-    CompileShaderMaker();
+void ShaderProgram::LoadShaderEditorMode(){
+    CompileShaderEditorCode();
     
     glAttachShader(shaderProgram, vertexShader);
     glLinkProgram(shaderProgram);
@@ -133,11 +140,10 @@ void ShaderProgram::LoadShaderMakerMode(){
     glDetachShader(shaderProgram, fragmentShader);
 }
 
-void ShaderProgram::CompileShaderMaker(){
+void ShaderProgram::CompileShaderEditorCode(){
     std::cout << "Compiling shader maker.\n";
 
-    std::string fragShaderSrc = (shaderMakerHeader + shaderMakerBody + shaderMakerFooter).c_str();
-    fragShader = fragShaderSrc.c_str();
+    fragShader = shaderEditorCode;
 
     glShaderSource(fragmentShader, 1, &fragShader, NULL);
     glCompileShader(fragmentShader);
@@ -151,8 +157,8 @@ void ShaderProgram::CompileShaderMaker(){
     glAttachShader(shaderProgram, fragmentShader);
 }
 
-void ShaderProgram::UpdateShaderMakerBody(std::string body){
-    shaderMakerBody = body;
+void ShaderProgram::UpdateShaderEditorCode(const char* code){
+    shaderEditorCode = code;
     ReloadShader();
 }
 

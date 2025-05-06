@@ -94,17 +94,17 @@ void Window::Run() {
 
         if (ImGui::BeginMainMenuBar()){
             if (ImGui::BeginMenu("Options")){
-                if (ImGui::MenuItem( shaderMakerMode ? "Shader Loader Mode" : "Shader Maker Mode")) {
-                    shaderMakerMode = !shaderMakerMode;
-                    shaderProgram.EnterShaderMakerMode();
+                if (ImGui::MenuItem( shaderEditorMode ? "Shader Loader Mode" : "Shader Editor Mode")) {
+                    shaderEditorMode = !shaderEditorMode;
+                    shaderProgram.EnterShaderEditorMode();
                 }
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
         }
 
-        if (!shaderMakerMode) ShaderLoaderPanel();
-        if (shaderMakerMode) ShaderMakerPanel();
+        if (!shaderEditorMode) ShaderLoaderPanel();
+        if (shaderEditorMode) ShaderEditorPanel();
         shaderProgram.UseProgram(width, height);
 
         ImGui::Render();
@@ -168,32 +168,21 @@ std::string vecToString(float vec[4], int size){
     return stringify;
 }
 
-struct ColorEdit { 
-public:
-    ColorEdit() = default;
-    // ColorEdit(std::string name, float& color) : mName{name}, mColor{color} { };
-    static void Draw(std::string name, float* color, bool* valuesChanged) {
-        if(ImGui::ColorEdit4(name.c_str(), color)){
-            *valuesChanged = true;
-        }
-    };
-private:
-    std::string mName;
-    float &mColor;
-};
-
-void Window::ShaderMakerPanel() {
+void Window::ShaderEditorPanel() {
     static float my_color[4] = {0.0f, 0.0f, 0.0f, 1.0f}; // Default color (red with full opacity)
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver); // Optional: Set initial position
-    std::string body = "";
-    ImGui::Begin("Shader Maker", &popoutMode, ImGuiWindowFlags_MenuBar);
+    std::string body[128];
+    char textBox[1024 * 16];
+    ImGui::Begin("Shader Editor", &popoutMode, ImGuiWindowFlags_MenuBar);
     bool valuesChanged = false;
 
     if(ImGui::BeginMenuBar()) {
-        if(ImGui::BeginMenu("Add Modifier")) {
-            if(ImGui::MenuItem("Length")) {
-
-                std::cout << "Adding length modifier\n";
+        if(ImGui::BeginMenu("Add")) {
+            if(ImGui::MenuItem("Generic Header")) {
+                std::cout << "Adding generic header\n";
+                shaderProgram.InsertShaderHeader();
+                strncpy(textBox, shaderProgram.GetShaderEditorCode().c_str(), sizeof(textBox) - 1);
+                textBox[sizeof(textBox) - 1] = '\0';
             }
             ImGui::EndMenu();
         }
@@ -205,28 +194,15 @@ void Window::ShaderMakerPanel() {
         std::cout << shaderName << "\n";
         valuesChanged = true;
     };
-
-    ColorEdit::Draw("my_color", my_color, &valuesChanged);
-
-    // if(ImGui::ColorEdit4("Color", my_color)){
-    //     valuesChanged = true;
-    // }
-
-    static bool dist = false;
-    if (ImGui::Checkbox("Distance", &dist)){
+    
+    if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), ImGuiInputTextFlags_AllowTabInput)){
         valuesChanged = true;
-    } 
+    };
 
     if (valuesChanged){
-        body += "vec4 my_color = " + vecToString(my_color, 4) + ";\n";
-        if(dist) body += "my_color.r = length(uv);\n";
-        body += 
-            "FragColor = my_color;\n"
-            
-            ;
-        shaderProgram.UpdateShaderMakerBody(body);
-
-        std::cout << body;
+        // shaderProgram.UpdateShaderMakerBody(body);
+        shaderProgram.UpdateShaderEditorCode(textBox);
+        std::cout << textBox << "\n";
     }
 
     ImGui::End();
