@@ -346,6 +346,54 @@ lib/stb.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/lib/stb.cpp.s
 .PHONY : lib/stb.cpp.s
 
+src/GUI.obj: src/GUI.cpp.obj
+.PHONY : src/GUI.obj
+
+# target to build an object file
+src/GUI.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj
+.PHONY : src/GUI.cpp.obj
+
+src/GUI.i: src/GUI.cpp.i
+.PHONY : src/GUI.i
+
+# target to preprocess a source file
+src/GUI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/src/GUI.cpp.i
+.PHONY : src/GUI.cpp.i
+
+src/GUI.s: src/GUI.cpp.s
+.PHONY : src/GUI.s
+
+# target to generate assembly for a file
+src/GUI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/src/GUI.cpp.s
+.PHONY : src/GUI.cpp.s
+
+src/Panel.obj: src/Panel.cpp.obj
+.PHONY : src/Panel.obj
+
+# target to build an object file
+src/Panel.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj
+.PHONY : src/Panel.cpp.obj
+
+src/Panel.i: src/Panel.cpp.i
+.PHONY : src/Panel.i
+
+# target to preprocess a source file
+src/Panel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/src/Panel.cpp.i
+.PHONY : src/Panel.cpp.i
+
+src/Panel.s: src/Panel.cpp.s
+.PHONY : src/Panel.s
+
+# target to generate assembly for a file
+src/Panel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/src/Panel.cpp.s
+.PHONY : src/Panel.cpp.s
+
 src/Shader.obj: src/Shader.cpp.obj
 .PHONY : src/Shader.obj
 
@@ -459,6 +507,12 @@ help:
 	@echo ... lib/stb.obj
 	@echo ... lib/stb.i
 	@echo ... lib/stb.s
+	@echo ... src/GUI.obj
+	@echo ... src/GUI.i
+	@echo ... src/GUI.s
+	@echo ... src/Panel.obj
+	@echo ... src/Panel.i
+	@echo ... src/Panel.s
 	@echo ... src/Shader.obj
 	@echo ... src/Shader.i
 	@echo ... src/Shader.s

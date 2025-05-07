@@ -91,17 +91,6 @@ void ShaderProgram::UseProgram(int width, int height) {
     glBindVertexArray(0);
 }
 
-std::string shaderMakerHeader = "#version 330 core\n"
-    "uniform vec2 iResolution;\n"
-    "out vec4 FragColor;\n"
-    "in vec2 inUV;\n"
-    "void main()\n";
-
-std::string shaderMakerCenter = 
-    "vec2 uv = inUV;\n"
-    "uv.x *= iResolution.x / iResolution.y;\n";
-
-
 void ShaderProgram::ReloadShader(){
     if(shaderMakerMode) {
         LoadShaderEditorMode();
@@ -117,8 +106,7 @@ void ShaderProgram::EnterShaderEditorMode(){
     ReloadShader();
 }
 
-
-void ShaderProgram::InsertShaderHeader() {
+void ShaderProgram::InsertShaderTemplate() {
     std::string templateSrc = loadShaderSrc("../assets/Frag_Template.glsl");
     shaderEditorCode = templateSrc.c_str();
     ReloadShader();

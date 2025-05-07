@@ -10,6 +10,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/cplusplus_projects/ShaderEngine/lib/glad.c" "CMakeFiles/ShaderEngine.dir/lib/glad.c.obj" "gcc" "CMakeFiles/ShaderEngine.dir/lib/glad.c.obj.d"
   "D:/cplusplus_projects/ShaderEngine/lib/stb.cpp" "CMakeFiles/ShaderEngine.dir/lib/stb.cpp.obj" "gcc" "CMakeFiles/ShaderEngine.dir/lib/stb.cpp.obj.d"
+  "D:/cplusplus_projects/ShaderEngine/src/GUI.cpp" "CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj" "gcc" "CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj.d"
+  "D:/cplusplus_projects/ShaderEngine/src/Panel.cpp" "CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj" "gcc" "CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj.d"
   "D:/cplusplus_projects/ShaderEngine/src/Shader.cpp" "CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj" "gcc" "CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj.d"
   "D:/cplusplus_projects/ShaderEngine/src/Window.cpp" "CMakeFiles/ShaderEngine.dir/src/Window.cpp.obj" "gcc" "CMakeFiles/ShaderEngine.dir/src/Window.cpp.obj.d"
   "D:/cplusplus_projects/ShaderEngine/src/main.cpp" "CMakeFiles/ShaderEngine.dir/src/main.cpp.obj" "gcc" "CMakeFiles/ShaderEngine.dir/src/main.cpp.obj.d"

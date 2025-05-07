@@ -30,7 +30,7 @@ public:
     void ReloadShader();
     void LoadNewFragmentShader(const char* src);
     void UpdateShaderEditorCode(const char* code);
-    void InsertShaderHeader();
+    void InsertShaderTemplate();
     std::string GetShaderEditorCode() {return shaderEditorCode;}
 private:
     std::string shaderSrc;

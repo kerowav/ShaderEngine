@@ -123,12 +123,12 @@ CMakeFiles/ShaderEngine.dir/all: CMakeFiles/ImGui.dir/all
 CMakeFiles/ShaderEngine.dir/all: CMakeFiles/Includes.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=11,12,13,14,15,16 "Built target ShaderEngine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=11,12,13,14,15,16,17,18 "Built target ShaderEngine"
 .PHONY : CMakeFiles/ShaderEngine.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ShaderEngine.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\cplusplus_projects\ShaderEngine\build\CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\cplusplus_projects\ShaderEngine\build\CMakeFiles 18
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/ShaderEngine.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\cplusplus_projects\ShaderEngine\build\CMakeFiles 0
 .PHONY : CMakeFiles/ShaderEngine.dir/rule
@@ -140,7 +140,7 @@ ShaderEngine: CMakeFiles/ShaderEngine.dir/rule
 # codegen rule for target.
 CMakeFiles/ShaderEngine.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\ShaderEngine.dir\build.make CMakeFiles/ShaderEngine.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=11,12,13,14,15,16 "Finished codegen for target ShaderEngine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=11,12,13,14,15,16,17,18 "Finished codegen for target ShaderEngine"
 .PHONY : CMakeFiles/ShaderEngine.dir/codegen
 
 # clean rule for target.

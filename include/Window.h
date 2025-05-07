@@ -4,8 +4,11 @@
 #include <GLFW/glfw3.h>
 
 #include <imgui-docking/imgui.h>
+#include <imgui-docking/imgui_internal.h>
 #include <imgui-docking/imgui_impl_glfw.h>
 #include <imgui-docking/imgui_impl_opengl3.h>
+#include <imgui-docking/TextEditor.h>
+#include <imgui-docking/imstb_textedit.h>
 
 #include "Shader.h"
 
@@ -18,16 +21,12 @@ public:
     void Run();
     GLFWwindow* getWindow();
 private:
-    void ChangeShader(const char* src);
-    void ReloadShader();
     GLFWwindow* window = nullptr;
     ShaderProgram shaderProgram;
+
     bool stayOnTop = true;
     bool fullscreen = false;
-    bool fullscreenKeyPressed = false;
-    bool reloadShaderKeyPressed = false;
+
     void processInput();
-    void ShaderLoaderPanel();
-    void ShaderEditorPanel();
     bool shaderEditorMode = false;
 };

@@ -146,13 +146,45 @@ CMakeFiles/ShaderEngine.dir/src/Shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ShaderEngine.dir/src/Shader.cpp.s"
 	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\cplusplus_projects\ShaderEngine\src\Shader.cpp -o CMakeFiles\ShaderEngine.dir\src\Shader.cpp.s
 
+CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj: CMakeFiles/ShaderEngine.dir/flags.make
+CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj: CMakeFiles/ShaderEngine.dir/includes_CXX.rsp
+CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj: D:/cplusplus_projects/ShaderEngine/src/GUI.cpp
+CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj: CMakeFiles/ShaderEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj -MF CMakeFiles\ShaderEngine.dir\src\GUI.cpp.obj.d -o CMakeFiles\ShaderEngine.dir\src\GUI.cpp.obj -c D:\cplusplus_projects\ShaderEngine\src\GUI.cpp
+
+CMakeFiles/ShaderEngine.dir/src/GUI.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ShaderEngine.dir/src/GUI.cpp.i"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\cplusplus_projects\ShaderEngine\src\GUI.cpp > CMakeFiles\ShaderEngine.dir\src\GUI.cpp.i
+
+CMakeFiles/ShaderEngine.dir/src/GUI.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ShaderEngine.dir/src/GUI.cpp.s"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\cplusplus_projects\ShaderEngine\src\GUI.cpp -o CMakeFiles\ShaderEngine.dir\src\GUI.cpp.s
+
+CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj: CMakeFiles/ShaderEngine.dir/flags.make
+CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj: CMakeFiles/ShaderEngine.dir/includes_CXX.rsp
+CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj: D:/cplusplus_projects/ShaderEngine/src/Panel.cpp
+CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj: CMakeFiles/ShaderEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj -MF CMakeFiles\ShaderEngine.dir\src\Panel.cpp.obj.d -o CMakeFiles\ShaderEngine.dir\src\Panel.cpp.obj -c D:\cplusplus_projects\ShaderEngine\src\Panel.cpp
+
+CMakeFiles/ShaderEngine.dir/src/Panel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ShaderEngine.dir/src/Panel.cpp.i"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\cplusplus_projects\ShaderEngine\src\Panel.cpp > CMakeFiles\ShaderEngine.dir\src\Panel.cpp.i
+
+CMakeFiles/ShaderEngine.dir/src/Panel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ShaderEngine.dir/src/Panel.cpp.s"
+	C:\msys64\ucrt64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\cplusplus_projects\ShaderEngine\src\Panel.cpp -o CMakeFiles\ShaderEngine.dir\src\Panel.cpp.s
+
 # Object files for target ShaderEngine
 ShaderEngine_OBJECTS = \
 "CMakeFiles/ShaderEngine.dir/src/main.cpp.obj" \
 "CMakeFiles/ShaderEngine.dir/lib/glad.c.obj" \
 "CMakeFiles/ShaderEngine.dir/lib/stb.cpp.obj" \
 "CMakeFiles/ShaderEngine.dir/src/Window.cpp.obj" \
-"CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj"
+"CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj" \
+"CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj" \
+"CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj"
 
 # External object files for target ShaderEngine
 ShaderEngine_EXTERNAL_OBJECTS =
@@ -162,13 +194,15 @@ ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/lib/glad.c.obj
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/lib/stb.cpp.obj
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/src/Window.cpp.obj
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj
+ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj
+ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/build.make
 ShaderEngine.exe: libImGui.a
 ShaderEngine.exe: libIncludes.a
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/linkLibs.rsp
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/objects1.rsp
 ShaderEngine.exe: CMakeFiles/ShaderEngine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable ShaderEngine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\cplusplus_projects\ShaderEngine\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ShaderEngine.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ShaderEngine.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

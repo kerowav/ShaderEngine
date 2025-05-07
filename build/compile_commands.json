@@ -76,5 +76,17 @@
   "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\src\\Shader.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\Shader.cpp",
   "file": "D:/cplusplus_projects/ShaderEngine/src/Shader.cpp",
   "output": "CMakeFiles/ShaderEngine.dir/src/Shader.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\src\\GUI.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\GUI.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/GUI.cpp",
+  "output": "CMakeFiles/ShaderEngine.dir/src/GUI.cpp.obj"
+},
+{
+  "directory": "D:/cplusplus_projects/ShaderEngine/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ShaderEngine.dir/includes_CXX.rsp -g -o CMakeFiles\\ShaderEngine.dir\\src\\Panel.cpp.obj -c D:\\cplusplus_projects\\ShaderEngine\\src\\Panel.cpp",
+  "file": "D:/cplusplus_projects/ShaderEngine/src/Panel.cpp",
+  "output": "CMakeFiles/ShaderEngine.dir/src/Panel.cpp.obj"
 }
 ]

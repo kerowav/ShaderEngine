@@ -2,7 +2,10 @@
 #include "Shader.h"
 
 #include <filesystem>
+#include <fstream>
 #include <string>
+
+#include "GUI.h"
 
 class Window;
 void framebuffer_size_callback(GLFWwindow*, int, int);
@@ -10,6 +13,10 @@ void framebuffer_size_callback(GLFWwindow*, int, int);
 Window& Window::getInstance() {
     static Window instance;
     return instance;
+}
+
+GLFWwindow* Window::getWindow(){
+    return window;
 }
 
 void Window::Initialize() {
@@ -50,22 +57,8 @@ void Window::Initialize() {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     shaderProgram = ShaderProgram("../assets/frag/fragment_core1.glsl");
+    GUI::getInstance().Initialize(shaderProgram, Panel::SHADER_LOADER);
 }
-
-
-
-/* TABLE OF USER VARIABLES
-
-
-VARIABLE TYPE - USER MADE VARIABLE NAME -  VARIABLE VALUE         -> Output
-
-vec4            my_color                  [0.0, 0.0, 0.0, 0.0]    -> "vec4 my_color = vec4(0.0, 0.0, 0.0, 0.0);\n"
-float           distance                  my_color                -> "float distance = length(my_color);\n"
-
-
-*/
-
-
 
 void Window::Run() {
     IMGUI_CHECKVERSION();
@@ -92,19 +85,11 @@ void Window::Run() {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        if (ImGui::BeginMainMenuBar()){
-            if (ImGui::BeginMenu("Options")){
-                if (ImGui::MenuItem( shaderEditorMode ? "Shader Loader Mode" : "Shader Editor Mode")) {
-                    shaderEditorMode = !shaderEditorMode;
-                    shaderProgram.EnterShaderEditorMode();
-                }
-                ImGui::EndMenu();
-            }
-            ImGui::EndMainMenuBar();
-        }
+        GUI::getInstance().RenderMainMenu(shaderProgram);
 
-        if (!shaderEditorMode) ShaderLoaderPanel();
-        if (shaderEditorMode) ShaderEditorPanel();
+        GUI::getInstance().RenderUI();
+        // if (shaderEditorMode) ShaderEditorPanel();
+        
         shaderProgram.UseProgram(width, height);
 
         ImGui::Render();
@@ -122,122 +107,82 @@ void Window::Run() {
     glfwTerminate();
 }
 
-void Window::ShaderLoaderPanel() {
-    ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver); // Optional: Set initial position
-    ImGui::Begin("Shader Loader");
+class Keybinds {
+public:
+    inline static bool reloadShaders = false;
+    inline static bool reloadShaderEditor = false;
+    inline static bool fullscreen = false;
+    inline static bool rightclick = false;
+};
 
-    std::string shaderName = shaderProgram.GetShaderName();
-    ImGui::Text(("Curent Shader: " + shaderName).c_str());
-
-    for(const auto & entry : std::filesystem::directory_iterator("../assets/frag")) {
-        std::string name = entry.path().stem().string();
-        if(ImGui::Button(name.c_str())) {
-            ChangeShader(("../assets/frag/" + name + ".glsl").c_str());
-        };
-    }
-    ImGui::Text("Completed");
-    for(const auto & entry : std::filesystem::directory_iterator("../assets/complete")) {
-        std::string name = entry.path().stem().string();
-        if(ImGui::Button(name.c_str())) {
-            ChangeShader(("../assets/complete/" + name + ".glsl").c_str());
-        };
-    }
-
-    ImGui::Text("Imported");
-    for(const auto & entry : std::filesystem::directory_iterator("../assets/import")) {
-        std::string name = entry.path().stem().string();
-        if(ImGui::Button(name.c_str())) {
-            ChangeShader(("../assets/import/" + name + ".glsl").c_str());
-        };
-    }
-
-    ImGui::End();
-}
-
-bool popoutMode = false;
-
-std::string vecToString(float vec[4], int size){
-    std::string stringify;
-    for(int i = 0; i < 4; i++) {
-        if(i == size - 1) stringify += std::to_string(i);
-        else stringify += std::to_string(vec[i]) + ",";
-    }
+void Window::processInput() {
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
     
-    stringify = "vec" + std::to_string(size) + "(" + stringify + ")";
-    std::cout << "Stringify: " << stringify << "\n";
-    return stringify;
-}
-
-void Window::ShaderEditorPanel() {
-    static float my_color[4] = {0.0f, 0.0f, 0.0f, 1.0f}; // Default color (red with full opacity)
-    ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver); // Optional: Set initial position
-    std::string body[128];
-    char textBox[1024 * 16];
-    ImGui::Begin("Shader Editor", &popoutMode, ImGuiWindowFlags_MenuBar);
-    bool valuesChanged = false;
-
-    if(ImGui::BeginMenuBar()) {
-        if(ImGui::BeginMenu("Add")) {
-            if(ImGui::MenuItem("Generic Header")) {
-                std::cout << "Adding generic header\n";
-                shaderProgram.InsertShaderHeader();
-                strncpy(textBox, shaderProgram.GetShaderEditorCode().c_str(), sizeof(textBox) - 1);
-                textBox[sizeof(textBox) - 1] = '\0';
-            }
-            ImGui::EndMenu();
+    if (glfwGetMouseButton(window, ImGuiMouseButton_Right) == GLFW_PRESS){
+        if(!Keybinds::rightclick) {
+            std::cout << "Right click!\n";
+            Keybinds::rightclick = true;
         }
-        ImGui::EndMenuBar();
     }
+    else Keybinds::rightclick = false;
 
-    static char shaderName[128] = "";
-    if(ImGui::InputText("Name", shaderName, IM_ARRAYSIZE(shaderName))){
-        std::cout << shaderName << "\n";
-        valuesChanged = true;
-    };
+    if(shaderEditorMode) {
+        //SHADER EDITOR SPECIFIC
+        if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+            if (!Keybinds::reloadShaderEditor) {
+                // GUI::getInstance().UpdateShaderEditorCode(textBox);
+                GUI::getInstance().UpdateShaderEditorCode();
+                Keybinds::reloadShaderEditor = true;
+                std::cout << "Saving and Reloading shader program.\n";
+            }
+        }
+        else Keybinds::reloadShaderEditor = false;
+
+        //OTHER
+        if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+            if (!Keybinds::reloadShaders) {
+                GUI::getInstance().ReloadShader();
+                Keybinds::reloadShaders = true;     
+                std::cout << "Reloading shaders.\n";  
+            }
+        }
+        else Keybinds::reloadShaders = false;
     
-    if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), ImGuiInputTextFlags_AllowTabInput)){
-        valuesChanged = true;
-    };
-
-    if (valuesChanged){
-        // shaderProgram.UpdateShaderMakerBody(body);
-        shaderProgram.UpdateShaderEditorCode(textBox);
-        std::cout << textBox << "\n";
+        if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+            if(!Keybinds::fullscreen) {
+                fullscreen = !fullscreen;
+                Keybinds::fullscreen = true;
+                std::cout << "Fullscreen: " << fullscreen << "\n";
+            }
+        }
+        else Keybinds::fullscreen = false;
+    }
+    else {
+        //OTHER
+        if(glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+            if (!Keybinds::reloadShaderEditor) {
+                GUI::getInstance().ReloadShader();
+                std::cout << "Reloading shaders.\n";
+                Keybinds::reloadShaderEditor = true;
+            }
+        }
+        else Keybinds::reloadShaderEditor = false;
+    
+        if(glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+            if(!Keybinds::fullscreen) {
+                fullscreen = !fullscreen;
+                Keybinds::fullscreen = true;
+                std::cout << "Fullscreen: " << fullscreen << "\n";
+            }
+            
+        }
+        else Keybinds::fullscreen = false;
     }
 
-    ImGui::End();
-}
 
-GLFWwindow* Window::getWindow(){
-    return window;
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
-}
-
-void Window::processInput() {
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-    
-    if(glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-        if (!reloadShaderKeyPressed) ReloadShader();
-        reloadShaderKeyPressed = true;       
-    }
-    else reloadShaderKeyPressed = false;
-
-    if(glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-        if(!fullscreenKeyPressed) fullscreen = !fullscreen;
-        fullscreenKeyPressed = true;
-        std::cout << "Fullscreen: " << fullscreen << "\n";
-    }
-    else fullscreenKeyPressed = false;
-}
-
-void Window::ChangeShader(const char* src) {
-    shaderProgram.LoadNewFragmentShader(src);
-}
-
-void Window::ReloadShader() {
-    shaderProgram.ReloadShader();
 }

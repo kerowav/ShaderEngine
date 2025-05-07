@@ -18,7 +18,7 @@ add_library(ImGui STATIC
 )
 target_include_directories(ImGui PUBLIC dependencies/imgui-docking)
 
-add_executable(ShaderEngine src/main.cpp lib/glad.c lib/stb.cpp src/Window.cpp src/Shader.cpp)
+add_executable(ShaderEngine src/main.cpp lib/glad.c lib/stb.cpp src/Window.cpp src/Shader.cpp src/GUI.cpp src/Panel.cpp)
 
 add_library(Includes STATIC src/Window.cpp src/Shader.cpp)
 target_include_directories(Includes PRIVATE dependencies include )
