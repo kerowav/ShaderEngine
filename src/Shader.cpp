@@ -92,7 +92,7 @@ void ShaderProgram::UseProgram(int width, int height) {
 }
 
 void ShaderProgram::ReloadShader(){
-    if(shaderMakerMode) {
+    if(shaderEditorMode) {
         LoadShaderEditorMode();
     }
     else {
@@ -101,21 +101,22 @@ void ShaderProgram::ReloadShader(){
 }
 
 void ShaderProgram::EnterShaderEditorMode(){
-    std::cout << "Shader maker mode initialized.\n";
-    shaderMakerMode = true;
-    ReloadShader();
+    std::cout << "ShaderProgram:Shader Editor Initialized.\n";
+    if(shaderEditorMode) return;
+    shaderEditorMode = true;
+    LoadShaderEditorMode();
 }
 
-void ShaderProgram::InsertShaderTemplate() {
-    std::string templateSrc = loadShaderSrc("../assets/Frag_Template.glsl");
-    shaderEditorCode = templateSrc.c_str();
-    ReloadShader();
-    // shaderEditorCode = (shaderMakerHeader + shaderEditorCode).c_str();
+void ShaderProgram::EnterShaderLoaderMode(){
+    std::cout << "ShaderProgram: Shader Loader Initialized.\n";
+    if (!shaderEditorMode) return; 
+    shaderEditorMode = false;
+    LoadNewFragmentShader(shaderSrc.c_str());
 }
 
 void ShaderProgram::LoadShaderEditorMode(){
     CompileShaderEditorCode();
-    
+    if(fragShaderCompileError) return;
     glAttachShader(shaderProgram, vertexShader);
     glLinkProgram(shaderProgram);
     
@@ -138,16 +139,31 @@ void ShaderProgram::CompileShaderEditorCode(){
 
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success) {
-      glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-      std::cout << "Error with fragment shader compilation.\n" << infoLog << "\n";
+        if(shaderEditorMode) {
+            fragShaderCompileError = true;
+            std::cout << "Editor code does not compile\n";
+            return;
+        }
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "Error with fragment shader compilation.\n" << infoLog << "\n";
+        
     }
+    else{
+      if(fragShaderCompileError) fragShaderCompileError = false;  
+    } 
 
-    glAttachShader(shaderProgram, fragmentShader);
+    if (!fragShaderCompileError) glAttachShader(shaderProgram, fragmentShader);
+}
+
+void ShaderProgram::InsertShaderTemplate() {
+    std::string templateSrc = loadShaderSrc("../assets/Frag_Template.glsl");
+    shaderEditorCode = templateSrc.c_str();
+    LoadShaderEditorMode();
 }
 
 void ShaderProgram::UpdateShaderEditorCode(const char* code){
     shaderEditorCode = code;
-    ReloadShader();
+    LoadShaderEditorMode();
 }
 
 void ShaderProgram::LoadNewFragmentShader(const char* src) {
@@ -191,7 +207,7 @@ void ShaderProgram::CompileFragmentShader(const char* src) {
     glAttachShader(shaderProgram, fragmentShader);
 }
 
-std::string ShaderProgram::loadShaderSrc(const char* filename) {
+std::string loadShaderSrc(const char* filename) {
     std::ifstream file;
     std::stringstream buf;
     

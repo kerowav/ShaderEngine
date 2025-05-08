@@ -1,4 +1,4 @@
-#include <Panel.h>
+#include "Panel.h"
 
 // SHADER EDITOR PANEL
 void ShaderEditorPanel::RenderPanel(){
@@ -17,6 +17,7 @@ void ShaderEditorPanel::RenderPanel(){
             if(ImGui::MenuItem("Load")) {
 
             }
+
             if(ImGui::MenuItem("Save")) {
                 std::string name = shaderName;
                 if(name != "") {
@@ -38,8 +39,18 @@ void ShaderEditorPanel::RenderPanel(){
                     }
                 }
             }
+
+            if(ImGui::BeginMenu("Options")){
+                std::string updateStatus = (liveUpdates ? "ON" : "OFF");
+                if(ImGui::MenuItem(("Live Update: " + updateStatus).c_str())){
+                    liveUpdates = !liveUpdates;
+                    std::cout << "Live Update toggled: " << updateStatus << "\n";
+                }
+                ImGui::EndMenu();
+            }
             ImGui::EndMenu();
         }
+
         if(ImGui::BeginMenu("Add")) {
             if(ImGui::MenuItem("Template")) {
                 std::cout << "Adding Template\n";
@@ -72,23 +83,7 @@ void ShaderEditorPanel::RenderPanel(){
     if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), ImGuiInputTextFlags_AllowTabInput)){
         valuesChanged = true;
         ImVec2 cursor_pos = ImGui::GetCursorPos();
-        std::string posString = "Cursor Position: (%.1f, %.1f)" + std::to_string(cursor_pos.x) +" / " + std::to_string(cursor_pos.y);
-        std::cout << posString << "\n";
     };
-
-    if(ImGui::BeginMenuBar()){
-        if(ImGui::BeginMenu("Options")){
-            std::string updateStatus = (liveUpdates ? "ON" : "OFF");
-            if(ImGui::MenuItem(("Live Update: " + updateStatus).c_str())){
-                liveUpdates = !liveUpdates;
-                std::cout << "Live Update toggled: " << updateStatus << "\n";
-            }
-            ImGui::EndMenu();
-        }
-        ImGui::EndMenuBar();
-    }
-
-    
 
     if (valuesChanged){
         if(liveUpdates) mShaderProgram->UpdateShaderEditorCode(textBox);
@@ -100,7 +95,6 @@ void ShaderEditorPanel::RenderPanel(){
 void ShaderEditorPanel::UpdateShaderEditorCode() {
     mShaderProgram->UpdateShaderEditorCode(textBox);
 }
-
 
 // SHADER LOADER PANEL
 void ShaderLoaderPanel::RenderPanel() {

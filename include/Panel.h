@@ -7,7 +7,7 @@
 #include <filesystem>
 #include <fstream>
 
-#include <Shader.h>
+#include "Shader.h"
 
 class Panel {
 public:
@@ -34,6 +34,7 @@ public:
         Panel::Panel(pt, shaderProgram)
     {
         mShaderProgram->LoadNewFragmentShader(mShaderProgram->GetShaderSrc().c_str());
+        mShaderProgram->EnterShaderLoaderMode();
     }
     void RenderPanel() override;
 };
@@ -47,7 +48,6 @@ public:
     }
     void RenderPanel() override;
     void UpdateShaderEditorCode() override;
-    // void InsertShaderTemplate() override;
 private:
     char textBox[1024 * 16];
     bool liveUpdates = false;

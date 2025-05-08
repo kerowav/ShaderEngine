@@ -20,6 +20,8 @@ public:
     ShaderProgram() = default;
     ShaderProgram(const char* src);
     void EnterShaderEditorMode();
+    void EnterShaderLoaderMode();
+    
     void UseProgram(int, int);
     inline std::string GetShaderName() {
         return shaderName;
@@ -35,10 +37,12 @@ public:
 private:
     std::string shaderSrc;
     std::string shaderName;
-    bool shaderMakerMode = false;
+    bool fragShaderCompileError = false;
+    bool shaderEditorMode = false;
     void CompileFragmentShader(const char* src);
     void LoadShaderEditorMode();
     void CompileShaderEditorCode();
-    const char* shaderEditorCode = "";
-    std::string loadShaderSrc(const char* filename);
+    const char* shaderEditorCode = "";  
 };
+
+std::string loadShaderSrc(const char* filename);

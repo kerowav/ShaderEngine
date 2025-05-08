@@ -88,7 +88,6 @@ void Window::Run() {
         GUI::getInstance().RenderMainMenu(shaderProgram);
 
         GUI::getInstance().RenderUI();
-        // if (shaderEditorMode) ShaderEditorPanel();
         
         shaderProgram.UseProgram(width, height);
 
@@ -116,7 +115,7 @@ public:
 };
 
 void Window::processInput() {
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     
     if (glfwGetMouseButton(window, ImGuiMouseButton_Right) == GLFW_PRESS){
@@ -127,60 +126,70 @@ void Window::processInput() {
     }
     else Keybinds::rightclick = false;
 
-    if(shaderEditorMode) {
-        //SHADER EDITOR SPECIFIC
-        if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            if (!Keybinds::reloadShaderEditor) {
-                // GUI::getInstance().UpdateShaderEditorCode(textBox);
-                GUI::getInstance().UpdateShaderEditorCode();
-                Keybinds::reloadShaderEditor = true;
-                std::cout << "Saving and Reloading shader program.\n";
+    switch(GUI::getInstance().getPanelType()) {
+        case(Panel::SHADER_EDITOR):
+            if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+                if (!Keybinds::reloadShaderEditor) {
+                    std::cout << "Saving and Reloading shader program: " << Keybinds::reloadShaderEditor << "\n";
+                    GUI::getInstance().UpdateShaderEditorCode();
+                    Keybinds::reloadShaderEditor = true;
+                }
+                return;
             }
-        }
-        else Keybinds::reloadShaderEditor = false;
-
-        //OTHER
-        if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-            if (!Keybinds::reloadShaders) {
-                GUI::getInstance().ReloadShader();
-                Keybinds::reloadShaders = true;     
-                std::cout << "Reloading shaders.\n";  
-            }
-        }
-        else Keybinds::reloadShaders = false;
-    
-        if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-            if(!Keybinds::fullscreen) {
-                fullscreen = !fullscreen;
-                Keybinds::fullscreen = true;
-                std::cout << "Fullscreen: " << fullscreen << "\n";
-            }
-        }
-        else Keybinds::fullscreen = false;
-    }
-    else {
-        //OTHER
-        if(glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-            if (!Keybinds::reloadShaderEditor) {
-                GUI::getInstance().ReloadShader();
-                std::cout << "Reloading shaders.\n";
-                Keybinds::reloadShaderEditor = true;
-            }
-        }
-        else Keybinds::reloadShaderEditor = false;
-    
-        if(glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-            if(!Keybinds::fullscreen) {
-                fullscreen = !fullscreen;
-                Keybinds::fullscreen = true;
-                std::cout << "Fullscreen: " << fullscreen << "\n";
-            }
+            else Keybinds::reloadShaderEditor = false;
             
-        }
-        else Keybinds::fullscreen = false;
+            //Adding ctrl to options
+            if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+                if (!Keybinds::reloadShaders) {
+                    GUI::getInstance().ReloadShader();
+                    Keybinds::reloadShaders = true;     
+                    std::cout << "Reloading shaders.\n";  
+                }
+                return;
+            }
+            else Keybinds::reloadShaders = false;
+        
+            if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+                if(!Keybinds::fullscreen) {
+                    fullscreen = !fullscreen;
+                    Keybinds::fullscreen = true;
+                    std::cout << "Fullscreen: " << fullscreen << "\n";
+                }
+                return;
+            }
+            else Keybinds::fullscreen = false;
+
+
+            break;
+        case(Panel::SHADER_LOADER):
+            if(glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+                if (!Keybinds::reloadShaderEditor) {
+                    GUI::getInstance().ReloadShader();
+                    std::cout << "Reloading shaders.\n";
+                    Keybinds::reloadShaderEditor = true;
+                }
+                return;
+            }
+            else Keybinds::reloadShaderEditor = false;
+        
+            if(glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+                if(!Keybinds::fullscreen) {
+                    fullscreen = !fullscreen;
+                    Keybinds::fullscreen = true;
+                    std::cout << "Fullscreen: " << fullscreen << "\n";
+                }
+                return;
+            }
+            else Keybinds::fullscreen = false;
+
+            if(glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+                glfwSetWindowShouldClose(window, true);
+            
+            
+            break;
+        default:
+            break;
     }
-
-
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {

@@ -1,4 +1,4 @@
-#include <GUI.h>
+#include "GUI.h"
 
 GUI& GUI::getInstance() {
     static GUI instance;
@@ -44,13 +44,15 @@ void GUI::SwitchMode(Panel::PanelType type) {
 void GUI::RenderMainMenu(ShaderProgram& shaderProgram) {
     if (ImGui::BeginMainMenuBar()){
         if (ImGui::BeginMenu("Options")){
-            if (ImGui::MenuItem( mShaderEditorModeActive ? "Shader Loader Mode" : "Shader Editor Mode")) {
+            if(mPanel->GetType() != Panel::SHADER_EDITOR)
+                if (ImGui::MenuItem("Shader Editor")) {
+                    SwitchMode(Panel::SHADER_EDITOR);
+                }
                 
-                mShaderEditorModeActive = !mShaderEditorModeActive;
-                SwitchMode(Panel::PanelType(mShaderEditorModeActive));
-
-                // shaderProgram.EnterShaderEditorMode();
-            }
+            if(mPanel->GetType() != Panel::SHADER_LOADER)
+                if (ImGui::MenuItem("Shader Loader")) {
+                    SwitchMode(Panel::SHADER_LOADER);
+                }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
