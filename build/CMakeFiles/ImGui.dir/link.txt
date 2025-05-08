@@ -1,2 +1,0 @@
-C:\msys64\ucrt64\bin\ar.exe qc libImGui.a "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui.cpp.obj" "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_draw.cpp.obj" "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_widgets.cpp.obj" "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_tables.cpp.obj" "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_impl_glfw.cpp.obj" "CMakeFiles/ImGui.dir/dependencies/imgui-docking/imgui_impl_opengl3.cpp.obj"
-C:\msys64\ucrt64\bin\ranlib.exe libImGui.a
