@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 
 #include "Shader.h"
+#include "Window.h"
+
 
 ShaderProgram::ShaderProgram(const char* src)  : 
     vertexShader{ glCreateShader(GL_VERTEX_SHADER) },
@@ -80,11 +82,18 @@ void ShaderProgram::UseProgram(int width, int height) {
 
     float timeValue = glfwGetTime();
 
-    float shaderTimeValue = glGetUniformLocation(shaderProgram, "inTime");
+    float shaderTimeValue = glGetUniformLocation(shaderProgram, "iTime");
     glUniform1f(shaderTimeValue, timeValue);
     
     int shaderResolutionLocation = glGetUniformLocation(shaderProgram, "iResolution");
     glUniform2f(shaderResolutionLocation, width, height);
+
+    double mouseX, mouseY;
+    glfwGetCursorPos(Window::getInstance().getWindow(), &mouseX, &mouseY);
+
+
+    int mousePositionLocation = glGetUniformLocation(shaderProgram, "iMouse");
+    glUniform2f(mousePositionLocation, mouseX, - (mouseY - height));
 
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -132,7 +141,9 @@ void ShaderProgram::LoadShaderEditorMode(){
 void ShaderProgram::CompileShaderEditorCode(){
     std::cout << "Compiling shader maker.\n";
 
-    fragShader = shaderEditorCode;
+    fragShader = shaderEditorCode.c_str();
+    
+
 
     glShaderSource(fragmentShader, 1, &fragShader, NULL);
     glCompileShader(fragmentShader);
@@ -142,22 +153,23 @@ void ShaderProgram::CompileShaderEditorCode(){
         if(shaderEditorMode) {
             fragShaderCompileError = true;
             std::cout << "Editor code does not compile\n";
+            glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+            errorMessage = infoLog;
             return;
         }
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
         std::cout << "Error with fragment shader compilation.\n" << infoLog << "\n";
-        
     }
     else{
       if(fragShaderCompileError) fragShaderCompileError = false;  
+      errorMessage = "Shader Compiled Successfully";
     } 
 
     if (!fragShaderCompileError) glAttachShader(shaderProgram, fragmentShader);
 }
 
 void ShaderProgram::InsertShaderTemplate() {
-    std::string templateSrc = loadShaderSrc("../assets/Frag_Template.glsl");
-    shaderEditorCode = templateSrc.c_str();
+    shaderEditorCode = loadShaderSrc("../assets/Frag_Template.glsl");
     LoadShaderEditorMode();
 }
 

@@ -80,14 +80,24 @@ void ShaderEditorPanel::RenderPanel(){
 
     // TextEditor();
 
-    if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), ImGuiInputTextFlags_AllowTabInput)){
+    
+
+    if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 24), ImGuiInputTextFlags_AllowTabInput)){
         valuesChanged = true;
         ImVec2 cursor_pos = ImGui::GetCursorPos();
     };
 
+    
+    std::string errMsgString = mShaderProgram->GetErrorMessage();
+    
+    strcpy(errorMessage, errMsgString.c_str());
+    ImGui::InputTextMultiline("##errorMsg", errorMessage, IM_ARRAYSIZE(errorMessage),ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), ImGuiInputTextFlags_ReadOnly);
+
     if (valuesChanged){
         if(liveUpdates) mShaderProgram->UpdateShaderEditorCode(textBox);
     }
+
+
 
     ImGui::End();
 }

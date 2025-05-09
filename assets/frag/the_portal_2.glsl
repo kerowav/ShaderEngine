@@ -7,14 +7,10 @@ mat2 rot(float x) {return mat2(cos(x), -sin(x), sin(x), cos(x));}
 vec3 pal(float x) {return .5+.5*cos(6.28*x-vec3(0,2,4));}
 
 uniform vec2 iResolution;
-out vec4 FragColor;
-in vec2 inUV;
-in float iTime;
+uniform float iTime;
 
 void main() {
-    vec2 uv = inUV;
-    uv.x *= iResolution.x / iResolution.y;
-
+    vec2 uv = ( 2. * gl_FragCoord.xy - iResolution.xy ) / iResolution.y;
 
     vec3 col = vec3(0);
     vec3 rd = vec3(uv, 1);
@@ -41,5 +37,5 @@ void main() {
     col *= tanh(col*.1);
     col = pow(col, vec3(.45));
 
-    FragColor = vec4(col,1.0);;
+    gl_FragColor = vec4(col,1.0);;
 }

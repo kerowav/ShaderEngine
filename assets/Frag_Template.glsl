@@ -2,15 +2,13 @@
 precision mediump float;
 
 uniform vec2 iResolution;
-out vec4 FragColor;
-in vec2 inUV;
-in float iTime;
+uniform float iTime;
 
 void main() {
-    vec2 uv = inUV;
+    vec2 uv = gl_FragCoord.xy;
     uv.x *= iResolution.x / iResolution.y;
 
     
 
-    FragColor = vec4(1.);
+    gl_FragColor = vec4(1.);
 }

@@ -2,9 +2,7 @@
 precision mediump float;
 
 uniform vec2 iResolution;
-out vec4 FragColor;
-in vec2 inUV;
-in float iTime;
+uniform float iTime;
 
 float circleShape(float radius, vec2 position) {
     float pxToCenter = distance(position, vec2(sin(iTime), cos(iTime)));
@@ -15,8 +13,7 @@ float circleShape(float radius, vec2 position) {
 }
 
 void main() {
-    vec2 uv = inUV;
-    uv.x *= iResolution.x / iResolution.y;
+    vec2 uv = ( 2. * gl_FragCoord.xy - iResolution.xy ) / iResolution.y;
 
 
     float circleWidth = 0.01;
@@ -30,5 +27,5 @@ void main() {
     red += adjustedTime;
     // red = sin(red);
 
-    FragColor = vec4(red, circle, sin(circle + fract(iTime + sin(red))), 1.);
+    gl_FragColor = vec4(red, circle, sin(circle + fract(iTime + sin(red))), 1.);
 }

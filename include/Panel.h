@@ -44,12 +44,14 @@ public:
     ShaderEditorPanel(PanelType pt, ShaderProgram& shaderProgram): 
         Panel::Panel(pt, shaderProgram)
     {
+        strcpy(textBox, mShaderProgram->GetShaderEditorCode().c_str());
         mShaderProgram->EnterShaderEditorMode();
     }
     void RenderPanel() override;
     void UpdateShaderEditorCode() override;
 private:
     char textBox[1024 * 16];
+    char errorMessage[1024 * 16];
     bool liveUpdates = false;
 };
             

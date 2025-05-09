@@ -5,9 +5,7 @@
 precision mediump float;
 
 uniform vec2 iResolution;
-out vec4 FragColor;
-in vec2 inUV;
-in float iTime;
+uniform float iTime;
 
 vec3 pal( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d )
 {
@@ -87,8 +85,7 @@ vec2 simulatedMouse(float time, float scale) {
 void main()
 {
     // Normalized pixel coordinates (from 0 to 1)
-    vec2 uv = inUV;
-    uv.x *= iResolution.x / iResolution.y;
+    vec2 uv = ( 2. * gl_FragCoord.xy - iResolution.xy ) / iResolution.y;
     
     uv *= .8;
     // vec2 mouse = iMouse.xy / iResolution.xy;
@@ -149,5 +146,5 @@ void main()
     // vec3 rgbColor = pal( cellUV.x,  vec3(0.8,0.5,0.4),vec3(0.2,0.4,0.2),vec3(2.0,1.0,1.0),vec3(0.0,0.25,0.25) );
 
     color = rgbColor * line; 
-    FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color, 1.0);
 }

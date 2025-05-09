@@ -1,11 +1,7 @@
 #version 330 core
-in vec2 fragCoord;
 
 uniform vec2 iResolution;
-in float iTime;
-in vec2 inUV;
-
-out vec4 FragColor;
+uniform float iTime;
 
 vec3 palette( float t) {
     vec3 a = vec3(0.5, 0.5, 0.5);
@@ -18,8 +14,7 @@ vec3 palette( float t) {
 
 void main( )
 {
-    vec2 uv = inUV;
-    uv.x *= iResolution.x / iResolution.y;
+    vec2 uv = ( 2. * gl_FragCoord.xy - iResolution.xy ) / iResolution.y;
 
     vec2 uv0 = uv;
     vec3 finalColor = vec3(0.0f);
@@ -41,5 +36,5 @@ void main( )
         finalColor += col * d;
     }
     
-    FragColor = vec4(finalColor, 1.0);
+    gl_FragColor = vec4(finalColor, 1.0);
 }
