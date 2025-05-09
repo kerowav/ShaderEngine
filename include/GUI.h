@@ -13,6 +13,8 @@ public:
     void RenderMainMenu(ShaderProgram&);
     void Initialize(ShaderProgram&, Panel::PanelType type);
     void RenderUI();
+    void SwitchMode(Panel::PanelType, bool);
+    void OpenFileInShaderEditor(std::string name, std::string filePath);
     inline Panel::PanelType getPanelType() {
         return mPanel->GetType();
     }
@@ -28,7 +30,6 @@ private:
     Panel* mPanel = nullptr;
     ShaderProgram* mShaderProgram = nullptr;
     void ActivateShaderLoaderMode();
-    void ActivateShaderEditorMode();
-    void SwitchMode(Panel::PanelType);
+    void ActivateShaderEditorMode(bool);
 };
 

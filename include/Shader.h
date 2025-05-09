@@ -33,17 +33,21 @@ public:
     void LoadNewFragmentShader(const char* src);
     void UpdateShaderEditorCode(const char* code);
     void InsertShaderTemplate();
-    std::string GetShaderEditorCode() {return shaderEditorCode;}
+    void OpenShaderInEditor(std::string name, std::string src);
+    inline std::string GetShaderEditorCode() { return shaderEditorCode; }
+    inline std::string GetShaderEditorName() { return shaderEditorName; }
+    inline void SetShaderEditorName(std::string name) { shaderEditorName = name; }
 private:
     std::string shaderSrc;
-    std::string shaderName;
+    std::string shaderName = "";
+    std::string shaderEditorCode = "";
+    std::string shaderEditorName = "";
     bool fragShaderCompileError = false;
     std::string errorMessage = "Error";
     bool shaderEditorMode = false;
     void CompileFragmentShader(const char* src);
     void LoadShaderEditorMode();
     void CompileShaderEditorCode();
-    std::string shaderEditorCode = "";
     // const char* shaderEditorCode = "";  
 };
 

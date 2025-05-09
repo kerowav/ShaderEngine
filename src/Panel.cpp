@@ -1,16 +1,13 @@
+#include "GUI.h"
 #include "Panel.h"
 
 // SHADER EDITOR PANEL
 void ShaderEditorPanel::RenderPanel(){
     static float my_color[4] = {0.0f, 0.0f, 0.0f, 1.0f}; // Default color (red with full opacity)
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver); // Optional: Set initial position
-    std::string body[128];
 
     ImGui::Begin("Shader Editor", nullptr, ImGuiWindowFlags_MenuBar);
     bool valuesChanged = false;
-
-    
-    static char shaderName[128];
 
     if(ImGui::BeginMenuBar()) {
         if(ImGui::BeginMenu("File")) {
@@ -31,7 +28,7 @@ void ShaderEditorPanel::RenderPanel(){
                     if (outputFile.is_open()) {
                         std::string code = textBox;
                         std::cout << code << "\n"; 
-                        outputFile << code << "\n";
+                        outputFile << code << "\n"; 
                         outputFile.close();
                         std::cout << "File saved: " << filePath << "\n";
                     } else {
@@ -72,15 +69,11 @@ void ShaderEditorPanel::RenderPanel(){
             }
         }
         strcpy(shaderName, name.c_str());
+        mShaderProgram->SetShaderEditorName(name);
 
         std::cout << shaderName << "\n";
         valuesChanged = true;
     };
-
-
-    // TextEditor();
-
-    
 
     if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 24), ImGuiInputTextFlags_AllowTabInput)){
         valuesChanged = true;
@@ -91,7 +84,8 @@ void ShaderEditorPanel::RenderPanel(){
     std::string errMsgString = mShaderProgram->GetErrorMessage();
     
     strcpy(errorMessage, errMsgString.c_str());
-    ImGui::InputTextMultiline("##errorMsg", errorMessage, IM_ARRAYSIZE(errorMessage),ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), ImGuiInputTextFlags_ReadOnly);
+
+    ImGui::InputTextMultiline("##errorMsg", errorMessage, IM_ARRAYSIZE(errorMessage),ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), ImGuiInputTextFlags_ReadOnly );
 
     if (valuesChanged){
         if(liveUpdates) mShaderProgram->UpdateShaderEditorCode(textBox);
@@ -106,6 +100,10 @@ void ShaderEditorPanel::UpdateShaderEditorCode() {
     mShaderProgram->UpdateShaderEditorCode(textBox);
 }
 
+void ShaderEditorPanel::LoadShaderEditorCode() {
+    strcpy(textBox, mShaderProgram->GetShaderEditorCode().c_str());
+}
+
 // SHADER LOADER PANEL
 void ShaderLoaderPanel::RenderPanel() {
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver); // Optional: Set initial position
@@ -117,6 +115,7 @@ void ShaderLoaderPanel::RenderPanel() {
 
     for(const auto & entry : std::filesystem::directory_iterator("../assets/frag")) {
         std::string name = entry.path().stem().string();
+        
         if(ImGui::Button(name.c_str())) {
             std::string source = "../assets/frag/" + name + ".glsl";
             mShaderProgram->LoadNewFragmentShader(source.c_str());
@@ -129,6 +128,9 @@ void ShaderLoaderPanel::RenderPanel() {
             }
             if (ImGui::MenuItem("Rename")) {
                 std::cout << "Rename shader: " << name << "\n";
+            }
+            if (ImGui::MenuItem("Open")) {
+                GUI::getInstance().OpenFileInShaderEditor(name, "../assets/frag/" + name + ".glsl");
             }
             ImGui::EndPopup();
         }

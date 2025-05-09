@@ -219,6 +219,13 @@ void ShaderProgram::CompileFragmentShader(const char* src) {
     glAttachShader(shaderProgram, fragmentShader);
 }
 
+void ShaderProgram::OpenShaderInEditor(std::string name, std::string src) {
+    shaderName = name;
+    shaderEditorCode = loadShaderSrc(src.c_str());
+    std::cout << shaderEditorCode << "\n";
+    LoadShaderEditorMode();
+}
+
 std::string loadShaderSrc(const char* filename) {
     std::ifstream file;
     std::stringstream buf;
