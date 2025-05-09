@@ -11,7 +11,6 @@
 int main() {
     std::cout << "RudeRacoon @_@\n"; 
     
-    // ImGui_Implglf
     Window& window{Window::getInstance()};
     window.Initialize();
 

@@ -7,7 +7,7 @@ uniform float iTime;
 void main() {
     vec2 uv = ( 2. * gl_FragCoord.xy - iResolution.xy ) / iResolution.y;
     vec2 uv0 = uv;
-
+	uv = uv * 2.;
     float distance = length(uv);
 
     uv = fract(uv / sin(distance) + iTime)  - 0.5;

@@ -112,7 +112,8 @@ void ShaderLoaderPanel::RenderPanel() {
     std::string shaderName = mShaderProgram->GetShaderName();
     ImGui::Text(("Loaded: " + shaderName).c_str());
         ImGui::Separator();
-
+    bool popupModal = false;
+    std::string nameToDelete;
     for(const auto & entry : std::filesystem::directory_iterator("../assets/frag")) {
         std::string name = entry.path().stem().string();
         
@@ -123,7 +124,9 @@ void ShaderLoaderPanel::RenderPanel() {
 
         if (ImGui::BeginPopupContextItem(name.c_str())) {
             if (ImGui::MenuItem("Delete")) {
-                ImGui::OpenPopup("Confirm Delete");
+                ImGui::OpenPopup("popupModal");
+                nameToDelete = name;
+                popupModal = true;
                 std::cout << "Delete shader: " << name << "\n";
             }
             if (ImGui::MenuItem("Rename")) {
@@ -134,25 +137,26 @@ void ShaderLoaderPanel::RenderPanel() {
             }
             ImGui::EndPopup();
         }
+    }
 
-        // Confirmation dialog Doesn't work!
-        if (ImGui::BeginPopupModal("Confirm Delete")) {
-            ImGui::Text("Are you sure you want to delete this shader?\n\n");
-            ImGui::Separator();
+    // Confirmation dialog Doesn't work!
+    if (ImGui::BeginPopupModal("popupModal")) {
 
-            if (ImGui::Button("Yes", ImVec2(120, 0))) {
-                std::cout << "Deleting shader: " << name << "\n";
-                // Add your delete logic here
-                ImGui::CloseCurrentPopup();
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("No", ImVec2(120, 0))) {
-                ImGui::CloseCurrentPopup();
-            }
+        ImGui::Text("Are you sure you want to delete this shader?\n\n");
+        ImGui::Separator();
 
-            ImGui::EndPopup();
+        if (ImGui::Button("Yes", ImVec2(120, 0))) {
+            std::cout << "Deleting shader: " << "test" << "\n";
+            // Add your delete logic here
+            ImGui::CloseCurrentPopup();
         }
-    
+        ImGui::SameLine();
+        if (ImGui::Button("No", ImVec2(120, 0))) {
+            ImGui::CloseCurrentPopup();
+        }
+
+        popupModal = false;
+        ImGui::EndPopup();
     }
     ImGui::End();
 }

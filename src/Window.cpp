@@ -56,7 +56,7 @@ void Window::Initialize() {
     glfwSetWindowAttrib(window, GLFW_FLOATING, stayOnTop);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    shaderProgram = ShaderProgram("../assets/frag/Frag_Template copy.glsl");
+    shaderProgram = ShaderProgram("../assets/frag/Flower.glsl");
     GUI::getInstance().Initialize(shaderProgram, Panel::SHADER_LOADER);
 }
 
