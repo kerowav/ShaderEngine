@@ -6,6 +6,7 @@
 #include <imgui-docking/imgui.h>
 #include <filesystem>
 #include <fstream>
+#include <stdio.h>
 
 #include "Shader.h"
 
@@ -43,6 +44,8 @@ public:
         mShaderProgram->EnterShaderLoaderMode();
     }
     void RenderPanel() override;
+private: 
+    std::string mFileNameToDelete;
 };
 
 class ShaderEditorPanel: public Panel {

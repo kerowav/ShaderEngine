@@ -24,7 +24,7 @@ private:
     GLFWwindow* window = nullptr;
     ShaderProgram shaderProgram;
 
-    bool stayOnTop = true;
+    bool stayOnTop = false;
     bool fullscreen = false;
 
     void processInput();

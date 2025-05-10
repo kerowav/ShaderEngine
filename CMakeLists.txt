@@ -23,6 +23,6 @@ add_executable(ShaderEngine src/main.cpp lib/glad.c lib/stb.cpp src/Window.cpp s
 add_library(Includes STATIC src/Window.cpp src/Shader.cpp)
 target_include_directories(Includes PRIVATE dependencies include )
 
-target_include_directories(ShaderEngine PRIVATE dependencies include  )
+target_include_directories(ShaderEngine PRIVATE dependencies include)
 
 target_link_libraries(ShaderEngine ImGui GLFW3 OpenGL::GL Includes)

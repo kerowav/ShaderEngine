@@ -1,3 +1,6 @@
+#define STB_C_LEXER_IMPLEMENTATION
+#include <stb/stb_c_lexer.h>
+
 #include "GUI.h"
 #include "Panel.h"
 
@@ -75,7 +78,39 @@ void ShaderEditorPanel::RenderPanel(){
         valuesChanged = true;
     };
 
+
     if(ImGui::InputTextMultiline("##code", textBox, IM_ARRAYSIZE(textBox), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 24), ImGuiInputTextFlags_AllowTabInput)){
+        // Define token buffer
+        // char token_text_buffer[256];
+        // stb_lexer lexer;
+        
+        // // Initialize lexer
+        // stb_c_lexer_init(&lexer,
+        //                 textBox, // input
+        //                 textBox + IM_ARRAYSIZE(textBox), // end of input
+        //                 token_text_buffer,
+        //                 sizeof(token_text_buffer));
+
+
+        // while (true) {
+        //     int token = stb_c_lexer_get_token(&lexer);
+        //     if (token == CLEX_eof) break;
+
+        //     std::cout << "Token: ";
+        //     if (token == CLEX_id) {
+        //         std::cout << "Identifier: " << lexer.string << "\n";
+        //     } else if (token == CLEX_intlit) {
+        //         std::cout << "Integer: " << lexer.int_number << "\n";
+        //     } else if (token == CLEX_floatlit) {
+        //         std::cout << "Float: " << lexer.real_number << "\n";
+        //     } else {
+        //         std::cout << "Symbol: '" << lexer.string << "'\n";
+        //     }
+        // }
+
+
+        ImGui::Text("{#fff}Row {#f00}%d {#fff}is {#0000ff}%s {#fff}and {#ff880088}orange transparent", 2, "blue");
+
         valuesChanged = true;
         ImVec2 cursor_pos = ImGui::GetCursorPos();
     };
@@ -111,24 +146,29 @@ void ShaderLoaderPanel::RenderPanel() {
 
     std::string shaderName = mShaderProgram->GetShaderName();
     ImGui::Text(("Loaded: " + shaderName).c_str());
-        ImGui::Separator();
+    ImGui::Separator();
+
     bool popupModal = false;
-    std::string nameToDelete;
+    std::string source;
+
+
+
     for(const auto & entry : std::filesystem::directory_iterator("../assets/frag")) {
         std::string name = entry.path().stem().string();
         
         if(ImGui::Button(name.c_str())) {
-            std::string source = "../assets/frag/" + name + ".glsl";
+            source = "../assets/frag/" + name + ".glsl";
             mShaderProgram->LoadNewFragmentShader(source.c_str());
         }
 
         if (ImGui::BeginPopupContextItem(name.c_str())) {
             if (ImGui::MenuItem("Delete")) {
-                ImGui::OpenPopup("popupModal");
-                nameToDelete = name;
+                source = "../assets/frag/" + name + ".glsl";
+                mFileNameToDelete = entry.path().string();
                 popupModal = true;
-                std::cout << "Delete shader: " << name << "\n";
+                std::cout << mFileNameToDelete << "\n";
             }
+
             if (ImGui::MenuItem("Rename")) {
                 std::cout << "Rename shader: " << name << "\n";
             }
@@ -139,24 +179,30 @@ void ShaderLoaderPanel::RenderPanel() {
         }
     }
 
-    // Confirmation dialog Doesn't work!
+    if (popupModal) ImGui::OpenPopup("popupModal");
+
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
     if (ImGui::BeginPopupModal("popupModal")) {
 
-        ImGui::Text("Are you sure you want to delete this shader?\n\n");
+        ImGui::Text(("Are you sure you want to delete: " + mFileNameToDelete + "?\n\n").c_str());
         ImGui::Separator();
 
         if (ImGui::Button("Yes", ImVec2(120, 0))) {
-            std::cout << "Deleting shader: " << "test" << "\n";
-            // Add your delete logic here
+            std::cout << "Deleting shader: " << mFileNameToDelete << "\n";
+            
+            std::remove((mFileNameToDelete).c_str());
             ImGui::CloseCurrentPopup();
+            mFileNameToDelete = "";
+            popupModal = false;
         }
         ImGui::SameLine();
         if (ImGui::Button("No", ImVec2(120, 0))) {
             ImGui::CloseCurrentPopup();
+            popupModal = false;
         }
-
-        popupModal = false;
         ImGui::EndPopup();
     }
+
     ImGui::End();
 }
